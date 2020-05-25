@@ -1,0 +1,14 @@
+Title: My Day
+Table:
+[Date | Time | Activity ]
+[Sept 1 | 9am | running ]
+[Sept 1 | 11am | eating ]
+
+PROGRAM ::= TITLE TABLE*
+TITLE   ::= "Title: " STRING
+TABLE   ::= "Table:" BOLDROW ROW*
+BOLDROW ::= ROW
+ROW     ::= "[" ITEM (SEP ITEM)* "]"
+ITEM   ::= STRING
+
+Note: When we say "STRING" here, we mean any string without whitespaces and that is not a keyword.
