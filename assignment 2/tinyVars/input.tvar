@@ -1,22 +1,16 @@
-def swap {
-    set a, call innerswap
-}
-
-def innerswap {
-    new temp
-    set temp, b
-    set b, a
-    return temp
+def swap(x, y) {
+    set a, y
+    set b, x
 }
 
 new a
 set a, 1
 new b
 set b, 2
-call swap
+call swap(a, b)
 print a
 print b
-call swap
+call swap(b, a)
 print a
 print b
 
