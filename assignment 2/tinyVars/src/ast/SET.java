@@ -11,7 +11,7 @@ public class SET extends STATEMENT {
         tokenizer.getAndCheckNext("set");
         name = tokenizer.getNext();
         tokenizer.getAndCheckNext(",");
-        exp = exp.makeExp(tokenizer);
+        exp = EXP.makeExp(tokenizer);
         exp.parse();
     }
 

@@ -7,31 +7,33 @@ import java.util.List;
 
 public class PROGRAM extends Node{
     private List<STATEMENT> statements = new ArrayList<>();
+    private List<PROCDEF> definitions = new ArrayList<>();
 
     @Override
     public void parse() {
         while (tokenizer.moreTokens()) {
-            STATEMENT s = null;
-            if (tokenizer.checkToken("set")) {
-                s = new SET();
+            if (tokenizer.checkToken("def")) {
+                PROCDEF procDef = new PROCDEF();
+                procDef.parse();
+                definitions.add(procDef);
+            } else if (tokenizer.checkToken("set") || tokenizer.checkToken("new") || tokenizer.checkToken("print")
+                    || tokenizer.checkToken("call")) {
+                STATEMENT s = STATEMENT.makeStatement(tokenizer);
+                s.parse();
+                statements.add(s);
+            } else {
+                throw new RuntimeException(
+                        "Unknown input:" + tokenizer.getNext() + " expect procedure definition or statement");
             }
-            else if (tokenizer.checkToken("new")){
-                s = new DEC();
-            }
-            else if (tokenizer.checkToken("print")){
-                s = new PRINT();
-            }
-            else {
-                throw new RuntimeException("Unknown statement:" + tokenizer.getNext());
-            }
-            s.parse();
-            statements.add(s);
         }
 
     }
 
     @Override
     public Integer evaluate() {
+        for (PROCDEF d : definitions) {
+            d.evaluate();
+        }
         for (STATEMENT s : statements){
             s.evaluate();
         }
