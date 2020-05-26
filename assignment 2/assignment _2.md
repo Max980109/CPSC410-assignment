@@ -21,3 +21,13 @@
 4. It would be false for both our language and ideal language.  It is the same reason as we talked in 3. If such behaviour is allowed, the programmers need to think about what the procedures actually do.
 
 5. True for our langugage but false for ideal language. As it does not exist in most programming languages right now.  It may cause confusion to programmers.
+
+## Exercise 7
+
+* Briefly describe (in 2-3 sentences) at least one potential disadvantage of this feature (besides the additional implementation effort).
+
+  * When the programming language supports the call-by-reference, the function could have potential adverse effects. The reason is that those functions may change the variables outside the scope of the the calling procedures, which may cause unexpected behaviours.
+
+* Briefly describe why it is not possible to support call-by-reference without also introducing variable aliasing (even if there is no explicit alias keyword).
+
+  * As the code example given, the b in the procedure context and the b in the global context point to same location in the memory.  They are aliases although we did not state "alias" in the code.
