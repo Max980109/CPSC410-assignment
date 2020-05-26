@@ -1,16 +1,19 @@
-def swap(x, y) {
-    set a, y
-    set b, x
+def swap(a, b) {
+    new temp
+    set temp, a
+    set a, b
+    set b, temp
+    return a
 }
 
 new a
 set a, 1
 new b
 set b, 2
-call swap(a, b)
-print a
-print b
-call swap(b, a)
+new swapped
+set swapped, call swap(a, b)
+set b, call swap(b, a)
+set a, swapped
 print a
 print b
 

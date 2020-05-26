@@ -17,7 +17,7 @@ public class Main {
         Tokenizer.makeTokenizer("input.tvar",literals);
         PROGRAM p = new PROGRAM();
         p.parse();
-        p.evaluate();
+        p.evaluate(Main.symbolTable);
         System.out.println("completed successfully");
         System.out.println(symbolTable);
     }

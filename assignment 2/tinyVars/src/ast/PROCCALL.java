@@ -2,8 +2,7 @@ package ast;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import ui.Main;
+import java.util.Map;
 
 public class PROCCALL extends STATEMENT {
     private String name;
@@ -34,14 +33,14 @@ public class PROCCALL extends STATEMENT {
     }
 
     @Override
-    public Integer evaluate() {
+    public Integer evaluate(Map<String, Object> symbolTable) {
         for (EXP exp: exps) {
-            Integer integer = exp.evaluate();
+            Integer integer = exp.evaluate(symbolTable);
             exp_integers.add(integer);
         }
-        PROCBODY proBODY = (PROCBODY) Main.symbolTable.get(name);
+        PROCBODY proBODY = (PROCBODY) symbolTable.get(name);
         proBODY.set_exp_integers(exp_integers);
-        proBODY.evaluate();
+        proBODY.evaluate(symbolTable);
         return null;
     }
     

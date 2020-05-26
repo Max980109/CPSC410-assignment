@@ -1,14 +1,16 @@
 package ast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import ui.Main;
+import java.util.Map;
 
 public class PROCBODY extends EXP {
     private List<STATEMENT> statements = new ArrayList<>();
     private EXP ret;
     private List<Integer> result_integer = new ArrayList<>();
     private List<NAME> names = new ArrayList<>();
+    Map<String, Object> local_table =  new HashMap<>();
 
     public void set_exp_integers(List<Integer> exp_integers) {
         result_integer = exp_integers;
@@ -49,19 +51,19 @@ public class PROCBODY extends EXP {
     }
 
     @Override
-    public Integer evaluate() {
+    public Integer evaluate(Map<String, Object> symbolTable) {
         for (int i = 0; i < names.size(); i++) {
             String name = names.get(i).toString();
             Integer result = result_integer.get(i);
-            Main.symbolTable.put(name, result);
+            local_table.put(name, result);
         }
 
         for (STATEMENT s : statements) {
-            s.evaluate();
+            s.evaluate(local_table);
         }
         
         if (ret != null) {
-            Integer integer = ret.evaluate();
+            Integer integer = ret.evaluate(local_table);
             return integer;
         } else {
             return null;

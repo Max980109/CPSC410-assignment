@@ -4,6 +4,7 @@ import libs.Node;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class PROGRAM extends Node{
     private List<STATEMENT> statements = new ArrayList<>();
@@ -30,12 +31,12 @@ public class PROGRAM extends Node{
     }
 
     @Override
-    public Integer evaluate() {
+    public Integer evaluate( Map<String, Object> symbolTable) {
         for (PROCDEF d : definitions) {
-            d.evaluate();
+            d.evaluate(symbolTable);
         }
         for (STATEMENT s : statements){
-            s.evaluate();
+            s.evaluate(symbolTable);
         }
         return null; // we only return a value for expressions (EXP); evaluation of programs/statements is via side-effects
     }

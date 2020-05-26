@@ -2,6 +2,7 @@ package ast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import ui.Main;
 
@@ -34,14 +35,14 @@ public class PROCCALLEXP extends EXP {
     }
 
     @Override
-    public Integer evaluate() {
+    public Integer evaluate( Map<String, Object> symbolTable) {
         for (EXP exp: exps) {
-            Integer integer = exp.evaluate();
+            Integer integer = exp.evaluate(symbolTable);
             exp_integers.add(integer);
         }
-        PROCBODY proBODY = (PROCBODY) Main.symbolTable.get(name);
+        PROCBODY proBODY = (PROCBODY) symbolTable.get(name);
         proBODY.set_exp_integers(exp_integers);
-        return proBODY.evaluate();
+        return proBODY.evaluate(symbolTable);
     }
     
 }
